@@ -1,7 +1,7 @@
 {
 "compilerOptions": {
-"rootDir": "./src",
-"outDir": "./dist",
+"rootDir": "typescript-in-react/src",
+"outDir": "typescript-in-react/src/dist",
 "allowJs": false,
 "allowSyntheticDefaultImports": true,
 "emitDecoratorMetadata": true,
