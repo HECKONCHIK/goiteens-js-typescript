@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import TodoItem from "./Components/TodoItem";
 import AddTodoForm from "./Components/AddTodoForm";
 import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./redux/store";
+import { addTodo, deleteTodo } from "./redux/slice";
 
 export interface Todo {
   id: number,
@@ -9,25 +12,17 @@ export interface Todo {
 }  
 
 function App() {
-const [todos, setTodos] = useState<Todo[]>([]);  
-  
-const addTodo = (text: string) => {
-const newTodo = { id: Date.now(), text };
-setTodos([...todos, newTodo]);
-};
 
-const deleteTodo = (id: number) => {
-const newTodos = todos.filter((todo) => todo.id !== id);
-setTodos(newTodos);
-};
+  const todos = useSelector((state: RootState) => state.todos)
+  const dispatch = useDispatch();
 
 return (
   <div className="App">
     <h1>Todo List</h1>
-    <AddTodoForm onAdd={addTodo} />
+    <AddTodoForm onAdd={(text)=>dispatch(addTodo(text))} />
     <ul>
       {todos.map((todo) => (
-      <TodoItem key={todo.id} todo={todo} onDelete={deleteTodo} />
+      <TodoItem key={todo.id} todo={todo} onDelete={(id)=>dispatch(deleteTodo(id))} />
       ))}
     </ul>
   </div>
